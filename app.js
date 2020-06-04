@@ -1,13 +1,16 @@
+'use strict'
+
 var https = require('https');
 var fs = require('fs');
 
 var options = {
-    key: fs.readFileSync('./keyfile/client-key.pem'),
-    ca: [fs.readFileSync('./keyfile/client-cert.pem')],
-    cert: fs.readFileSync('./keyfile/server-cert.pem')
-};
+  key  : fs.readFileSync('../fmchl.com/fmchl.com.crt'),
+  cert : fs.readFileSync('../fmchl.com/fmchl.com.pem')
+}
 
-https.createServer(options,function(req,res){
-    res.writeHead(200);
-    res.end('hello world\n');
-}).listen(3000,'127.0.0.1');
+var app = https.createServer(options, function(req, res){
+	res.writeHead(200, {'Content-Type': 'text/plain'});
+	res.end('HTTPS:Hello World!\n');
+
+
+}).listen(3000, '0.0.0.0');
